@@ -1,0 +1,24 @@
+class profile::tomcat {
+
+  java::oracle { 'jdk8' :
+    ensure  => 'present',
+    version => '8',
+    java_se => 'jdk',
+  }
+
+  tomcat::install { '/opt/tomcat9':
+    source_url => "https://s3.us-east-2.amazonaws.com/com-presidio-tomcat/apache-tomcat-9.0.12.tar.gz",
+  }
+  tomcat::instance { 'tomcat9':
+    catalina_home => '/opt/tomcat9',
+  }
+  tomcat::config::server { 'tomcat9':
+    catalina_base => '/opt/tomcat9',
+    port          => '9090',
+  }
+}
+
+
+
+
+

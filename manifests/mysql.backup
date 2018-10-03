@@ -1,0 +1,22 @@
+class profile::mysql {
+
+  class { '::mysql::server' :
+    root_password    => '1L0v3Ic3Cr3am#!',
+    override_options =>  {'mysqld' => {'max_connections' => '1025', 'bind_address' => '0.0.0.0'}},
+    restart =>true,  
+}
+
+  mysql::db { 'jpetstore1' :
+    user => 'admin',
+    password => '1L0v3Ic3Cr3am#!',
+    host => '%',
+}
+
+  mysql_user { 'jpetstore@localhost':
+    ensure => 'present',
+    max_connections_per_hour => '60',
+    max_queries_per_hour => '60',
+    max_updates_per_hour => '120',
+    max_user_connections => '10',
+  }
+}	
