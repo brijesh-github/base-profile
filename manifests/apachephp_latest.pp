@@ -1,19 +1,13 @@
-class profile::apachephp {
+class profile::apachephp_latest {
 
-exec 
-exec {'removephp':
- command => '/bin/yum -y remove php*'
-}
+ package { 'php':
+  ensure => 'latest',
+ }
 
-class {'::php':
- ensure => '5.4'
-}
- class {'apache':
+  class {'apache':
+    mpm_module => 'prefork',
     docroot    => "/var/www",
  }
- class {'apache::mod::php':
-  php_version => '5.4'   
-}
 
 wget::fetch { 'https://s3.us-east-2.amazonaws.com/com-presidio-puppet-php/index.php':
   destination => '/var/www/',

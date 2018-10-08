@@ -1,20 +1,13 @@
-class profile::apachephp {
-
-exec 
-exec {'removephp':
- command => '/bin/yum -y remove php*'
-}
-
-class {'::php':
- ensure => '5.4'
-}
- class {'apache':
+class profile::apachephp_71 {
+  class {'apache':
+    mpm_module => 'prefork',
     docroot    => "/var/www",
  }
- class {'apache::mod::php':
-  php_version => '5.4'   
-}
-
+class { 'apache::mod::php':
+    package_name => 'php70',
+    php_version  => '7.0',
+    path         => 'modules/libphp-7.0.so',
+  }
 wget::fetch { 'https://s3.us-east-2.amazonaws.com/com-presidio-puppet-php/index.php':
   destination => '/var/www/',
   timeout     => 0,
