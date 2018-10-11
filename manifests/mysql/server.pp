@@ -4,8 +4,6 @@ class profile::mysql::server(
   String $root_password = 'newPassword123',
   String $bind_address  = '0.0.0.0',
 ){
-  
-  notify{" $service_name": }
 
   class { '::mysql::server' :
     service_name     => $service_name,
