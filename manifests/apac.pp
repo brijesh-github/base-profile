@@ -1,5 +1,6 @@
 class profile::apachephp {
 
+exec 
 exec {'removephp':
  command => '/bin/yum -y remove php*'
 }

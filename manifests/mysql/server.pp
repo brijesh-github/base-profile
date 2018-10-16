@@ -4,13 +4,13 @@ class profile::mysql::server(
   String $root_password = 'newPassword123',
   String $bind_address  = '0.0.0.0',
 ){
-
+  notice('before profile::mysql::server')
   class { '::mysql::server' :
     service_name     => $service_name,
     root_password    => $root_password,
     package_name     => $package_name, 
     create_root_user => false,
-    restart => true,
+    restart => false,
     override_options => {
       mysqld => {
         log-error => '/var/log/mysqld.log',
@@ -23,4 +23,5 @@ class profile::mysql::server(
       },
     },
   }
+  notice('after profile::mysql::server')
 }
